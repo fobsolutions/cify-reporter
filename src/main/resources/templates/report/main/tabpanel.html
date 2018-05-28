@@ -1,0 +1,63 @@
+<div role="tabpanel" class="tab-pane fade {isActive}" id="{tabId}">
+
+    <!--START: components/main/overview.html-->
+    {OVERVIEW_HTML_PAGE}
+    <!--END: components/main/overview.html-->
+
+    <script>
+        function setFilter(activePresentation, activeTest, notActivePresentation, notActiveTest) {
+            document.getElementById(activePresentation).classList.add('active');
+            document.getElementById(activeTest).classList.add('active');
+
+            document.getElementById(notActivePresentation).classList.remove('active');
+            document.getElementById(notActiveTest).classList.remove('active');
+        }
+
+
+
+    </script>
+
+    <div class="filter">
+        <ul class="nav nav-tabs" role="tablist">
+            <li id="failed-presentation-{tabId}" role="presentation" class="active">
+                <a onclick="setFilter('failed-presentation-{tabId}','failed-tests-{tabId}', 'passed-presentation-{tabId}', 'passed-tests-{tabId}')"
+                   aria-controls="failed-tests-{tabId}" role="tab"
+                   href="#failed-tests-{tabId}"
+                   data-toggle="tab" aria-expanded="false">Failed tests
+                </a>
+            </li>
+            <li id="passed-presentation-{tabId}" role="presentation" class="">
+                <a onclick="setFilter('passed-presentation-{tabId}', 'passed-tests-{tabId}', 'failed-presentation-{tabId}', 'failed-tests-{tabId}')"
+                   aria-controls="passed-tests-{tabId}"
+                   role="tab" data-toggle="tab"
+                   href="#passed-tests-{tabId}"
+                   aria-expanded="true">Passed tests
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div class="report">
+        <div class="report-head">
+            <div class="report-row">
+                <div class="report-val medium">{tableHeader}</div>
+            </div>
+        </div>
+        <div class="tab-content">
+            <div id="failed-tests-{tabId}" role="tabpanel" class="tab-pane fade active">
+                <div class="report-body">
+                    <!--START: components/details/step.html-->
+                    {FAILED_STEP_HTML_PAGE}
+                    <!--END: components/details/step.html-->
+                </div>
+            </div>
+
+            <div id="passed-tests-{tabId}" role="tabpanel" class="tab-pane fade">
+                <div class="report-body">
+                    <!--START: components/details/step.html-->
+                    {PASSED_STEP_HTML_PAGE}
+                    <!--END: components/details/step.html-->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

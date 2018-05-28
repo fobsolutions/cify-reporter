@@ -1,0 +1,120 @@
+<div class="overview">
+    <div class="row">
+        <div class="col-sm-6"><h1>{suiteName}</h1>
+            <table class="table">
+                <tbody>
+                <tr>
+                    <td>Date and Time:</td>
+                    <td>{startDate}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <div id=chart-4-{tabId} class=high-chart data-highcharts-chart=7></div>
+
+    <script>
+        var chart = new Highcharts.Chart({
+        chart: {
+          type: 'bar',
+          renderTo: 'chart-4-{tabId}',
+          height: 150,
+          marginLeft: 0,
+          marginRight: 0,
+          marginTop: 0,
+          marginBottom: 0,
+          animation: true,
+          style: {
+            fontFamily: "'Khmer UI', sans-serif"
+          }
+        },
+        colors: ["#00a651", "#ff3d00"],
+        title: {
+          text: ''
+        },
+        navigation: {
+          buttonOptions: {
+            enabled: false
+          }
+        },
+        tooltip: {
+          pointFormat: '<b>{failedPercentage}</b>',
+          headerFormat: '',
+          enabled: false
+        },
+
+        xAxis: {
+          gridLineWidth: 0,
+          labels: {
+            enabled: false
+          },
+          tickLength: 0,
+          lineColor: 'transparent',
+
+        },
+        yAxis: {
+          gridLineWidth: 0,
+          labels: {
+            enabled: false
+          },
+          title: ''
+        },
+        legend: {
+          layout: 'horizontal',
+          align: 'right',
+          verticalAlign: 'top',
+          borderWidth: 0,
+          itemStyle: {
+            fontSize: 14,
+            fontWeight: 'normal'
+          },
+          itemDistance: 30,
+          reversed: true
+        },
+        plotOptions: {
+          bar: {
+            borderWidth: 5,
+            maxPointWidth: 55,
+            dataLabels: {
+              enabled: true,
+              format: '{failedPercentage}',
+              align: 'left',
+              x: 20,
+              style: {
+                textShadow: '0 0 0 transparent',
+                color: '#fff',
+                fontSize: 18,
+                fontWeight: 'normal'
+              }
+            },
+            events: {
+              legendItemClick: function () {
+                return false;
+              }
+            }
+          },
+          series: {
+            stacking: 'normal'
+          }
+        },
+        series: [
+          {
+            name: 'Passed',
+            data: {passedCount}
+          }, {
+            name: 'Failed',
+            data: {failedCount}
+          }]
+      });
+    </script>
+
+    <div class="chart-footer">
+        <div class="row">
+            <div class="col-sm-6"><big class="number text-danger text-center">{failedCount}</big>
+                <p class="text-center">Failed</p></div>
+            <div class="col-sm-6"><big class="number text-muted text-center">{passedCount}</big>
+                <p class="text-center">Passed</p></div>
+        </div>
+    </div>
+</div>
