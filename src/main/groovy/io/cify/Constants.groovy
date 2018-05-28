@@ -16,7 +16,7 @@ class Constants {
     /**
      * Cify report static HTML templates
      */
-    static final String REPORTS_TEMPLATES_PATH = TEMPLATES_PATH + "report/"
+    static final String REPORTS_TEMPLATES_PATH = getClass().getClassLoader().getResource(TEMPLATES_PATH + "report/").getPath()
 
     /**
      * Cify report path
@@ -26,6 +26,6 @@ class Constants {
     /**
      * Sample reports
      */
-    static final String REPORT_PATH = "src/main/resources/templates/example"
+    static final String REPORT_PATH = getClass().getClassLoader().getResource("src/main/resources/templates/example").getPath()
 
 }
