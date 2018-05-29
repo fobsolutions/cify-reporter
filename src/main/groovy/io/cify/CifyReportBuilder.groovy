@@ -106,6 +106,7 @@ class CifyReportBuilder {
         // templates/details
         FileUtils.copyInputStreamToFile(new CifyReportBuilder().getClass().getClassLoader().getResourceAsStream(Constants.TEMPLATES_PATH + "report/details/details.html"), new File(reportDirectory.getPath() + "/templates/details/details.html"))
         FileUtils.copyInputStreamToFile(new CifyReportBuilder().getClass().getClassLoader().getResourceAsStream(Constants.TEMPLATES_PATH + "report/details/overview.html"), new File(reportDirectory.getPath() + "/templates/details/overview.html"))
+        FileUtils.copyInputStreamToFile(new CifyReportBuilder().getClass().getClassLoader().getResourceAsStream(Constants.TEMPLATES_PATH + "report/details/video.html"), new File(reportDirectory.getPath() + "/templates/details/video.html"))
 
         // templates/main
         FileUtils.copyInputStreamToFile(new CifyReportBuilder().getClass().getClassLoader().getResourceAsStream(Constants.TEMPLATES_PATH + "report/main/index.html"), new File(reportDirectory.getPath() + "/templates/main/index.html"))

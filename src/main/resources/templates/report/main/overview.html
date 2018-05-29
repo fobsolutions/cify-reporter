@@ -7,6 +7,10 @@
                     <td>Date and Time:</td>
                     <td>{startDate}</td>
                 </tr>
+                <tr>
+                    <td>Duration:</td>
+                    <td>{duration}</td>
+                </tr>
                 </tbody>
             </table>
         </div>
@@ -39,7 +43,7 @@
           }
         },
         tooltip: {
-          pointFormat: '<b>{failedPercentage}</b>',
+          pointFormat: '<b>{point.percentage:.1f}%</b>',
           headerFormat: '',
           enabled: false
         },
@@ -78,7 +82,7 @@
             maxPointWidth: 55,
             dataLabels: {
               enabled: true,
-              format: '{failedPercentage}',
+              format: '{point.percentage:.1f}%',
               align: 'left',
               x: 20,
               style: {
@@ -101,10 +105,10 @@
         series: [
           {
             name: 'Passed',
-            data: {passedCount}
+            data: [{passedCount}]
           }, {
             name: 'Failed',
-            data: {failedCount}
+            data: [{failedCount}]
           }]
       });
     </script>

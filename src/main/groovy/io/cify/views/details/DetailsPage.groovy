@@ -11,6 +11,8 @@ import io.cify.views.common.StacktracePage
 import io.cify.views.common.StepPage
 import org.apache.commons.io.FileUtils
 
+import java.util.concurrent.TimeUnit
+
 /**
  * Created by FOB Solutions
  * Generates details page for report
@@ -69,16 +71,28 @@ class DetailsPage extends BasePage {
 
         //Overview template
         File overviewTemplate = new File(Constants.REPORT_DIR + Constants.TEMPLATES_PATH + "details/overview.html")
+        File videoTemplate = new File(Constants.REPORT_DIR + Constants.TEMPLATES_PATH + "details/video.html")
+
         String overviewString = FileUtils.readFileToString(overviewTemplate)
 
         String testName = scenario.getScenario().getName()
         String startDate = scenario.getStartDate().toString()
-        String duration = scenario.getEndDate() - scenario.getStartDate()
+        long duration = scenario.getEndDate().getTime() - scenario.getStartDate().getTime()
 
         overviewString = overviewString.replace("{projectName}", projectName)
         overviewString = overviewString.replace("{suiteName}", suiteName)
-        overviewString = overviewString.replace("{scenarioVideoSource}", getVideoFilePath(scenario.getScenario().getName()))
-        overviewString = overviewString.replace("{scenarioDuration}", duration)
+
+        String fullVideoString = ""
+        scenario.getDevices().each {
+            if (it.get("video") != null) {
+                String videoString = FileUtils.readFileToString(videoTemplate)
+                videoString = videoString.replace("{videoId}", it.hashCode() as String)
+                videoString = videoString.replace("{scenarioVideoSource}", it.get("video") as String)
+                fullVideoString = fullVideoString + videoString
+            }
+        }
+        overviewString = overviewString.replace("{VIDEO_HTML_PAGE}", fullVideoString)
+        overviewString = overviewString.replace("{scenarioDuration}", convertMilliseconds(duration))
         overviewString = overviewString.replace("{testName}", testName)
         overviewString = overviewString.replace("{featureName}", featureName)
         overviewString = overviewString.replace("{startDate}", startDate)
@@ -110,8 +124,8 @@ class DetailsPage extends BasePage {
                 )
 
                 String stepString = StepPage.generateStepPage(
-                        step.getResult().getStatus() == "failed",
-                        step.getDuration() as String,
+                        step.getResult().getStatus(),
+                        convertMilliseconds(step.getDuration()),
                         step.getStep().getKeyword() + step.getStep().getName(),
                         step.getStep().getName().replace(" ", "-") + "-step",
                         stacktraceString
@@ -140,7 +154,7 @@ class DetailsPage extends BasePage {
                 )
 
                 String stepString = StepPage.generateStepPage(
-                        scenario.getStatus() == Status.FAILED,
+                        scenario.getStatus() == Status.FAILED ? "failed" : "passed",
                         "",
                         stepName,
                         device.hashCode() + "deviceId",
@@ -182,30 +196,22 @@ class DetailsPage extends BasePage {
         String name = condition == "before" ? "Preconditions" : "After conditions"
 
         String stepString = StepPage.generateStepPage(
-                isFailed,
+                isFailed ? "failed" : "passed" ,
                 "",
                 name,
                 scenario.getScenario().getName() + "-" + name.replace(" ", "-"),
                 stacktraceString
         )
-           return stepString
-        }
-
-    /**
-     * Gets video file
-     * */
-    private static String getVideoFilePath(String scenarioName) {
-        String videoDirectoryString = System.getProperty("videoDir") +
-                System.getProperty("task", "plug-and-play") +
-                "/" +
-                scenarioName.replace(" ", "-") +
-                "/"
-
-        File videoDir = new File(videoDirectoryString)
-        try {
-            return videoDir.listFiles().first().getPath()
-        } catch (ignored) {
-            return ""
-        }
+        return stepString
     }
+
+    private static String convertMilliseconds(long duration) {
+        String.format("%d minutes %d seconds",
+                TimeUnit.MILLISECONDS.toMinutes(duration),
+                TimeUnit.MILLISECONDS.toSeconds(duration) -
+                        TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(duration))
+        )
+
+    }
+
 }
