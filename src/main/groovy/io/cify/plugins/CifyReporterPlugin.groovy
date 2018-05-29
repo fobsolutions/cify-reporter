@@ -1,6 +1,7 @@
 package io.cify.plugins
 
 import gherkin.formatter.Formatter
+import gherkin.formatter.NiceAppendable
 import gherkin.formatter.Reporter
 import gherkin.formatter.model.*
 import groovy.json.JsonBuilder
@@ -12,7 +13,6 @@ import io.cify.core.Status
 import io.cify.framework.core.Device
 import io.cify.framework.core.DeviceCategory
 import io.cify.framework.core.DeviceManager
-import org.json.JSONObject
 
 /**
  * Created by FOB Solutions
@@ -39,6 +39,12 @@ class CifyReporterPlugin implements Formatter, Reporter {
     CifyFeature cifyFeature
     CifyScenario cifyScenario
     CifyStep cifyStep
+
+    private final NiceAppendable out
+
+    CifyReporterPlugin(Appendable out) {
+        this.out = new NiceAppendable(out)
+    }
 
     /**
      * Is called at the beginning of the scenario life cycle, meaning before the first "before" hook.
@@ -159,14 +165,7 @@ class CifyReporterPlugin implements Formatter, Reporter {
      */
     @Override
     void done() {
-        String directoryPath = "build/cify/reports/cify/"
-        String taskName = cifyFeature.getFeature().getId() + new Date().hashCode()
-        File reportDirectory = new File(directoryPath)
-        if (!reportDirectory.isDirectory()) {
-            reportDirectory.mkdirs()
-        }
-        File reportFile = new File(directoryPath + taskName + ".json")
-        reportFile.write(new JSONObject(root) as String)
+        out.append(new JsonBuilder(root).toPrettyString())
     }
 
     /**
@@ -174,6 +173,7 @@ class CifyReporterPlugin implements Formatter, Reporter {
      */
     @Override
     void close() {
+        out.close()
     }
 
     /**
