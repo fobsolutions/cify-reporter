@@ -11,12 +11,7 @@ class Constants {
     /**
      * Cify report components
      */
-    static final String TEMPLATES_PATH = "src/main/resources/templates/"
-
-    /**
-     * Cify report static HTML templates
-     */
-    static final String REPORTS_TEMPLATES_PATH = getClass().getClassLoader().getResource(TEMPLATES_PATH + "report/").getPath()
+    static final String TEMPLATES_PATH = "templates/"
 
     /**
      * Cify report path
@@ -24,8 +19,8 @@ class Constants {
     static final String REPORT_DIR = "build/cify/reports/cify/html/"
 
     /**
-     * Sample reports
+     * Reports
      */
-    static final String REPORT_PATH = getClass().getClassLoader().getResource("src/main/resources/templates/example").getPath()
+    static final String REPORT_PATH = "build/cify/reports/cify"
 
 }

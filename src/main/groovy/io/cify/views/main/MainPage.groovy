@@ -15,9 +15,9 @@ import org.apache.commons.io.FileUtils
  */
 class MainPage extends BasePage {
 
-    private static File mainOverviewTemplate = new File(Constants.REPORTS_TEMPLATES_PATH + "main/overview.html")
-    private static File mainTemplateFile = new File(Constants.REPORTS_TEMPLATES_PATH + "main/index.html")
-    private static File tabpanelTemplateFile = new File(Constants.REPORTS_TEMPLATES_PATH + "main/tabpanel.html")
+    private static File mainOverviewTemplate = new File(Constants.REPORT_DIR + Constants.TEMPLATES_PATH + "main/overview.html")
+    private static File mainTemplateFile = new File(Constants.REPORT_DIR + Constants.TEMPLATES_PATH + "main/index.html")
+    private static File tabpanelTemplateFile = new File(Constants.REPORT_DIR + Constants.TEMPLATES_PATH + "main/tabpanel.html")
 
     /**
      * Generate main page

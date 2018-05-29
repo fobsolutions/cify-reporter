@@ -14,10 +14,12 @@ class CifyReportBuilder {
     static void generateReports(String projectName, String suiteName) {
         setup()
         List files = collectResults()
-        List<CifyFeature> features = collectFeatures(files)
-        DetailsPage.generateDetailsPages(features, projectName, suiteName)
-        MainPage mainPage = new MainPage()
-        mainPage.generateMainPage(features, projectName, suiteName)
+        if (!files.isEmpty()) {
+            List<CifyFeature> features = collectFeatures(files)
+            DetailsPage.generateDetailsPages(features, projectName, suiteName)
+            MainPage mainPage = new MainPage()
+            mainPage.generateMainPage(features, projectName, suiteName)
+        }
     }
 
     private static List<CifyFeature> collectFeatures(List files) {
@@ -34,11 +36,18 @@ class CifyReportBuilder {
     }
 
     private static List collectResults() {
+        List<File> reports = new ArrayList<>()
         File reportDir = new File(Constants.REPORT_PATH)
-        return reportDir.listFiles()
+        reportDir.listFiles().each {
+            if (it.isFile()) {
+                reports.add(it)
+            }
+        }
+
+        return reports
     }
 
-    private static void setup() {
+    static void setup() {
         File reportDirectory = new File(Constants.REPORT_DIR)
 
         File directory = new File(reportDirectory.getPath() + "/details/")
@@ -46,13 +55,10 @@ class CifyReportBuilder {
             directory.mkdirs()
         }
 
-        File templateImagesFolder = new File(Constants.TEMPLATES_PATH + "images/")
-        File templateScriptsFolder = new File(Constants.TEMPLATES_PATH + "scripts/")
-        File templateStylesFolder = new File(Constants.TEMPLATES_PATH + "styles/")
-
         File imagesFolder = new File(reportDirectory.getPath() + "/images/")
         File scriptsFolder = new File(reportDirectory.getPath() + "/scripts/")
         File stylesFolder = new File(reportDirectory.getPath() + "/styles/")
+        File templatesFolder = new File(reportDirectory.getPath() + "/templates/")
 
         if (imagesFolder.isDirectory()) {
             imagesFolder.deleteDir()
@@ -66,8 +72,45 @@ class CifyReportBuilder {
             imagesFolder.deleteDir()
         }
 
-        FileUtils.copyDirectory(templateImagesFolder, new File(reportDirectory.getPath() + "/images/"))
-        FileUtils.copyDirectory(templateScriptsFolder, new File(reportDirectory.getPath() + "/scripts/"))
-        FileUtils.copyDirectory(templateStylesFolder, new File(reportDirectory.getPath() + "/styles/"))
+        if (templatesFolder.isDirectory()) {
+            templatesFolder.deleteDir()
+        }
+
+        new File(reportDirectory.getPath() + "/images").mkdirs()
+        new File(reportDirectory.getPath() + "/scripts").mkdirs()
+        new File(reportDirectory.getPath() + "/styles").mkdirs()
+        new File(reportDirectory.getPath() + "/templates").mkdirs()
+
+        // Images
+        FileUtils.copyInputStreamToFile(new CifyReportBuilder().getClass().getClassLoader().getResourceAsStream(Constants.TEMPLATES_PATH + "images/logo.png"), new File(reportDirectory.getPath() + "/images/logo.png"))
+        FileUtils.copyInputStreamToFile(new CifyReportBuilder().getClass().getClassLoader().getResourceAsStream(Constants.TEMPLATES_PATH + "images/btn-back.png"), new File(reportDirectory.getPath() + "/images/btn-back.png"))
+
+        // Styles
+        FileUtils.copyInputStreamToFile(new CifyReportBuilder().getClass().getClassLoader().getResourceAsStream(Constants.TEMPLATES_PATH + "styles/main.css"), new File(reportDirectory.getPath() + "/styles/main.css"))
+
+        // Scripts
+        FileUtils.copyInputStreamToFile(new CifyReportBuilder().getClass().getClassLoader().getResourceAsStream(Constants.TEMPLATES_PATH + "scripts/main.js"), new File(reportDirectory.getPath() + "/scripts/main.js"))
+        FileUtils.copyInputStreamToFile(new CifyReportBuilder().getClass().getClassLoader().getResourceAsStream(Constants.TEMPLATES_PATH + "scripts/plugins.js"), new File(reportDirectory.getPath() + "/scripts/plugins.js"))
+        FileUtils.copyInputStreamToFile(new CifyReportBuilder().getClass().getClassLoader().getResourceAsStream(Constants.TEMPLATES_PATH + "scripts/scripts.js"), new File(reportDirectory.getPath() + "/scripts/scripts.js"))
+        FileUtils.copyInputStreamToFile(new CifyReportBuilder().getClass().getClassLoader().getResourceAsStream(Constants.TEMPLATES_PATH + "scripts/vendor.js"), new File(reportDirectory.getPath() + "/scripts/vendor.js"))
+
+        // Templates
+        new File(reportDirectory.getPath() + "/templates/common").mkdirs()
+        new File(reportDirectory.getPath() + "/templates/details").mkdirs()
+        new File(reportDirectory.getPath() + "/templates/main").mkdirs()
+
+        // templates/common
+        FileUtils.copyInputStreamToFile(new CifyReportBuilder().getClass().getClassLoader().getResourceAsStream(Constants.TEMPLATES_PATH + "report/common/stacktrace.html"), new File(reportDirectory.getPath() + "/templates/common/stacktrace.html"))
+        FileUtils.copyInputStreamToFile(new CifyReportBuilder().getClass().getClassLoader().getResourceAsStream(Constants.TEMPLATES_PATH + "report/common/step.html"), new File(reportDirectory.getPath() + "/templates/common/step.html"))
+
+        // templates/details
+        FileUtils.copyInputStreamToFile(new CifyReportBuilder().getClass().getClassLoader().getResourceAsStream(Constants.TEMPLATES_PATH + "report/details/details.html"), new File(reportDirectory.getPath() + "/templates/details/details.html"))
+        FileUtils.copyInputStreamToFile(new CifyReportBuilder().getClass().getClassLoader().getResourceAsStream(Constants.TEMPLATES_PATH + "report/details/overview.html"), new File(reportDirectory.getPath() + "/templates/details/overview.html"))
+
+        // templates/main
+        FileUtils.copyInputStreamToFile(new CifyReportBuilder().getClass().getClassLoader().getResourceAsStream(Constants.TEMPLATES_PATH + "report/main/index.html"), new File(reportDirectory.getPath() + "/templates/main/index.html"))
+        FileUtils.copyInputStreamToFile(new CifyReportBuilder().getClass().getClassLoader().getResourceAsStream(Constants.TEMPLATES_PATH + "report/main/overview.html"), new File(reportDirectory.getPath() + "/templates/main/overview.html"))
+        FileUtils.copyInputStreamToFile(new CifyReportBuilder().getClass().getClassLoader().getResourceAsStream(Constants.TEMPLATES_PATH + "report/main/tabpanel.html"), new File(reportDirectory.getPath() + "/templates/main/tabpanel.html"))
+
     }
 }

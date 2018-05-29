@@ -5,6 +5,7 @@ import io.cify.Constants
 import io.cify.core.CifyFeature
 import io.cify.core.CifyScenario
 import io.cify.core.CifyStep
+import io.cify.core.Status
 import io.cify.views.BasePage
 import io.cify.views.common.StacktracePage
 import io.cify.views.common.StepPage
@@ -41,7 +42,7 @@ class DetailsPage extends BasePage {
     static String generateDetailsPage(String featureName, CifyScenario scenario, String projectName, String suiteName) {
 
         // Overall template
-        File htmlTemplateFile = new File(Constants.REPORTS_TEMPLATES_PATH + "details/details.html")
+        File htmlTemplateFile = new File(Constants.REPORT_DIR + Constants.TEMPLATES_PATH + "details/details.html")
         String htmlString = FileUtils.readFileToString(htmlTemplateFile)
 
         htmlString = htmlString.replace("{projectName}", projectName)
@@ -67,7 +68,7 @@ class DetailsPage extends BasePage {
     static String getScenarioOverviewString(String featureName, CifyScenario scenario, String projectName, String suiteName) {
 
         //Overview template
-        File overviewTemplate = new File(Constants.REPORTS_TEMPLATES_PATH + "details/overview.html")
+        File overviewTemplate = new File(Constants.REPORT_DIR + Constants.TEMPLATES_PATH + "details/overview.html")
         String overviewString = FileUtils.readFileToString(overviewTemplate)
 
         String testName = scenario.getScenario().getName()
