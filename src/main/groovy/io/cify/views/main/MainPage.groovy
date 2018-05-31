@@ -9,6 +9,7 @@ import io.cify.views.common.StacktracePage
 import io.cify.views.common.StepPage
 import org.apache.commons.io.FileUtils
 
+import java.time.ZoneId
 import java.util.concurrent.TimeUnit
 
 /**
@@ -48,7 +49,9 @@ class MainPage extends BasePage {
      */
     private static String getScenarioOverviewString(List<CifyFeature> features, String suiteName, String strategy) {
 
-        String startDate = features.first().startDate.toString()
+        String startDate = features.first().startDate.toInstant()
+                .atZone(ZoneId.systemDefault())
+                .toLocalDate().toString()
 
         List<Date> dates = new ArrayList<>()
         features.each { CifyFeature feature ->
@@ -329,10 +332,12 @@ class MainPage extends BasePage {
     private static String convertMilliseconds(long duration) {
         String.format("%d hours %d minutes %d seconds",
                 TimeUnit.MILLISECONDS.toHours(duration),
+
                 TimeUnit.MILLISECONDS.toMinutes(duration) -
-                        TimeUnit.MILLISECONDS.toMinutes(TimeUnit.MILLISECONDS.toHours(duration)),
+                        (TimeUnit.MILLISECONDS.toMinutes(duration) / 60).toInteger() * 60,
+
                 TimeUnit.MILLISECONDS.toSeconds(duration) -
-                        TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(duration))
+                        (TimeUnit.MILLISECONDS.toSeconds(duration) / 60).toInteger() * 60,
         )
     }
 }

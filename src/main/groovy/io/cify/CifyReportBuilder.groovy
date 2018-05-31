@@ -84,6 +84,7 @@ class CifyReportBuilder {
         // Images
         FileUtils.copyInputStreamToFile(new CifyReportBuilder().getClass().getClassLoader().getResourceAsStream(Constants.TEMPLATES_PATH + "images/logo.png"), new File(reportDirectory.getPath() + "/images/logo.png"))
         FileUtils.copyInputStreamToFile(new CifyReportBuilder().getClass().getClassLoader().getResourceAsStream(Constants.TEMPLATES_PATH + "images/btn-back.png"), new File(reportDirectory.getPath() + "/images/btn-back.png"))
+        FileUtils.copyInputStreamToFile(new CifyReportBuilder().getClass().getClassLoader().getResourceAsStream(Constants.TEMPLATES_PATH + "images/bg-header-line.png"), new File(reportDirectory.getPath() + "/images/bg-header-line.png"))
 
         // Styles
         FileUtils.copyInputStreamToFile(new CifyReportBuilder().getClass().getClassLoader().getResourceAsStream(Constants.TEMPLATES_PATH + "styles/main.css"), new File(reportDirectory.getPath() + "/styles/main.css"))

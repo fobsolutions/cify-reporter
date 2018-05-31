@@ -11,6 +11,7 @@ import io.cify.views.common.StacktracePage
 import io.cify.views.common.StepPage
 import org.apache.commons.io.FileUtils
 
+import java.time.ZoneId
 import java.util.concurrent.TimeUnit
 
 /**
@@ -76,7 +77,9 @@ class DetailsPage extends BasePage {
         String overviewString = FileUtils.readFileToString(overviewTemplate)
 
         String testName = scenario.getScenario().getName()
-        String startDate = scenario.getStartDate().toString()
+        String startDate = scenario.getStartDate().toInstant()
+                .atZone(ZoneId.systemDefault())
+                .toLocalDate().toString()
         long duration = scenario.getEndDate().getTime() - scenario.getStartDate().getTime()
 
         overviewString = overviewString.replace("{projectName}", projectName)
@@ -87,7 +90,13 @@ class DetailsPage extends BasePage {
             if (it.get("video") != null) {
                 String videoString = FileUtils.readFileToString(videoTemplate)
                 videoString = videoString.replace("{videoId}", it.hashCode() as String)
-                videoString = videoString.replace("{scenarioVideoSource}", it.get("video") as String)
+                String videoSource
+                if (System.getProperty(Constants.BUILD_URL)) {
+                    videoSource = System.getProperty(Constants.BUILD_URL) + "artifact/" + it.get("video") as String
+                } else {
+                    videoSource = it.get("video") as String
+                }
+                videoString = videoString.replace("{scenarioVideoSource}", videoSource)
                 fullVideoString = fullVideoString + videoString
             }
         }
@@ -196,7 +205,7 @@ class DetailsPage extends BasePage {
         String name = condition == "before" ? "Preconditions" : "After conditions"
 
         String stepString = StepPage.generateStepPage(
-                isFailed ? "failed" : "passed" ,
+                isFailed ? "failed" : "passed",
                 "",
                 name,
                 scenario.getScenario().getName() + "-" + name.replace(" ", "-"),

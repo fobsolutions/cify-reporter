@@ -23,4 +23,9 @@ class Constants {
      */
     static final String REPORT_PATH = "build/cify/reports/cify"
 
+    /**
+     * BUILD_URL for Jenkins execution
+     */
+    static final String BUILD_URL = "BUILD_URL"
+
 }
