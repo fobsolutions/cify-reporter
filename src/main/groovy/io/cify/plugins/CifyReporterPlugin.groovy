@@ -145,7 +145,10 @@ class CifyReporterPlugin implements Formatter, Reporter {
      */
     @Override
     void step(Step step) {
-        cifyScenario.addStep(new CifyStep(step))
+        if (cifyScenario) {
+            cifyStep = new CifyStep(step)
+            cifyScenario.addStep(cifyStep)
+        }
     }
 
     /**
