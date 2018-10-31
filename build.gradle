@@ -37,7 +37,7 @@ bintray {
     user = project.hasProperty('bintrayUser') ? project.bintrayUser : System.getenv('BINTRAY_USER')
     key = project.hasProperty('bintrayApiKey') ? project.bintrayApiKey : System.getenv('BINTRAY_KEY')
     publish = true
-    override = true
+    override = false
     publications = ['mavenJava']
     pkg {
         repo = group
