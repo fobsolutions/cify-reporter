@@ -9,15 +9,20 @@ import io.cify.views.common.StacktracePage
 import io.cify.views.common.StepPage
 import org.apache.commons.io.FileUtils
 
+import java.time.ZoneId
+import java.util.concurrent.TimeUnit
+
 /**
  * Created by FOB Solutions
  * Generates main page for Report
  */
 class MainPage extends BasePage {
 
-    private static File mainOverviewTemplate = new File(Constants.REPORTS_TEMPLATES_PATH + "main/overview.html")
-    private static File mainTemplateFile = new File(Constants.REPORTS_TEMPLATES_PATH + "main/index.html")
-    private static File tabpanelTemplateFile = new File(Constants.REPORTS_TEMPLATES_PATH + "main/tabpanel.html")
+    private
+    static File mainOverviewTemplate = new File(Constants.REPORT_DIR + Constants.TEMPLATES_PATH + "main/overview.html")
+    private static File mainTemplateFile = new File(Constants.REPORT_DIR + Constants.TEMPLATES_PATH + "main/index.html")
+    private
+    static File tabpanelTemplateFile = new File(Constants.REPORT_DIR + Constants.TEMPLATES_PATH + "main/tabpanel.html")
 
     /**
      * Generate main page
@@ -44,7 +49,26 @@ class MainPage extends BasePage {
      */
     private static String getScenarioOverviewString(List<CifyFeature> features, String suiteName, String strategy) {
 
-        String startDate = features.first().startDate.toString()
+        String startDate = features.first().startDate.toInstant()
+                .atZone(ZoneId.systemDefault())
+                .toLocalDate().toString()
+
+        List<Date> dates = new ArrayList<>()
+        features.each { CifyFeature feature ->
+
+            feature.getScenarios().each { CifyScenario scenario ->
+                dates.add(scenario.getStartDate())
+                dates.add(scenario.getEndDate())
+            }
+        }
+
+        dates = dates.sort {
+            it.getTime()
+        }
+
+        long startDatelong = dates.first().getTime()
+        long endDatelong = dates.last().getTime()
+
         int failedCount = 0
         int passedCount = 0
 
@@ -77,6 +101,7 @@ class MainPage extends BasePage {
         String overviewString = FileUtils.readFileToString(mainOverviewTemplate)
 
         overviewString = overviewString.replace("{startDate}", startDate.toString())
+        overviewString = overviewString.replace("{duration}", convertMilliseconds(endDatelong - startDatelong))
         overviewString = overviewString.replace("{suiteName}", suiteName)
         overviewString = overviewString.replace("{failedPercentage}", (failedCount / (passedCount + failedCount) * 100).toString() + "%")
         overviewString = overviewString.replace("{failedCount}", failedCount.toString())
@@ -120,7 +145,7 @@ class MainPage extends BasePage {
                     }
 
                     String stepString = StepPage.generateStepPage(
-                            status == Status.FAILED,
+                            status == Status.FAILED ? "failed" : "passed",
                             "",
                             featureName,
                             featureName.replace(" ", "-") + "-tests-" + status,
@@ -153,7 +178,7 @@ class MainPage extends BasePage {
                         }
                     }
                     String stepString = StepPage.generateStepPage(
-                            status == Status.FAILED,
+                            status == Status.FAILED ? "failed" : "passed",
                             "",
                             devices,
                             devices.replace(" ", "-") + "-devices-" + status,
@@ -302,5 +327,17 @@ class MainPage extends BasePage {
             failedPassedMap.get(featureName).get(scenario.getStatus()).add(scenario)
         }
         return failedPassedMap
+    }
+
+    private static String convertMilliseconds(long duration) {
+        String.format("%d hours %d minutes %d seconds",
+                TimeUnit.MILLISECONDS.toHours(duration),
+
+                TimeUnit.MILLISECONDS.toMinutes(duration) -
+                        (TimeUnit.MILLISECONDS.toMinutes(duration) / 60).toInteger() * 60,
+
+                TimeUnit.MILLISECONDS.toSeconds(duration) -
+                        (TimeUnit.MILLISECONDS.toSeconds(duration) / 60).toInteger() * 60,
+        )
     }
 }

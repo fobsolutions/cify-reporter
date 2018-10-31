@@ -11,12 +11,7 @@ class Constants {
     /**
      * Cify report components
      */
-    static final String TEMPLATES_PATH = "src/main/resources/templates/"
-
-    /**
-     * Cify report static HTML templates
-     */
-    static final String REPORTS_TEMPLATES_PATH = TEMPLATES_PATH + "report/"
+    static final String TEMPLATES_PATH = "templates/"
 
     /**
      * Cify report path
@@ -24,8 +19,13 @@ class Constants {
     static final String REPORT_DIR = "build/cify/reports/cify/html/"
 
     /**
-     * Sample reports
+     * Reports
      */
-    static final String REPORT_PATH = "src/main/resources/templates/example"
+    static final String REPORT_PATH = "build/cify/reports/cify"
+
+    /**
+     * BUILD_URL for Jenkins execution
+     */
+    static final String BUILD_URL = "BUILD_URL"
 
 }

@@ -9,9 +9,21 @@ import org.apache.commons.io.FileUtils
  */
 class StepPage {
 
-    static String generateStepPage(boolean isFailed, String duration, String name, String stepId, String stacktrace) {
+    static String generateStepPage(String status, String duration, String name, String stepId, String stacktrace) {
         String stepString = FileUtils.readFileToString(BasePage.stepTemplate)
-        String stepStatus = isFailed ? "danger" : "success"
+        String stepStatus
+        if (status == "passed") {
+            stepStatus = "success"
+        } else if (status == "failed") {
+            stepStatus = "danger"
+        } else {
+            stepStatus = "warning"
+        }
+
+        String stepClass = status == "failed" ? "show" : "hide"
+
+        stepString = stepString.replace("{cucumberStepIsFailed}", (status == "failed").toString())
+        stepString = stepString.replace("{cucumberStepClass}", stepClass)
         stepString = stepString.replace("{cucumberStepStatus}", stepStatus)
         stepString = stepString.replace("{cucumberStepDuration}", duration)
         stepString = stepString.replace("{cucumberStepName}", name)

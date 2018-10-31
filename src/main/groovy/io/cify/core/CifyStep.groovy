@@ -10,7 +10,7 @@ class CifyStep {
     List embeddings
     List writings
     Step step = null
-    long duration
+    Long duration = 0
     Map device
     Result result
     Date startDate
@@ -38,10 +38,10 @@ class CifyStep {
         Map resultMap = map["result"] as Map
         this.result = new Result(
                 resultMap["status"] as String,
-                resultMap["duration"] as long,
+                resultMap["duration"] as Long,
                 resultMap["errorMessage"] as String
         )
-        this.duration = map["duration"] as long
+        this.duration = map["duration"] as Long
         this.device = map["device"] as Map
         this.startDate = Date.parse("yyyy-MM-dd'T'HH:mm:ss", map["startDate"] as String)
         this.endDate = Date.parse("yyyy-MM-dd'T'HH:mm:ss", map["endDate"] as String)

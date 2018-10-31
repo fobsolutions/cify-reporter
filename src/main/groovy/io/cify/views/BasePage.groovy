@@ -7,7 +7,7 @@ import io.cify.Constants
  */
 class BasePage {
 
-    static File stacktraceHeadTemplate = new File(Constants.REPORTS_TEMPLATES_PATH + "common/stacktrace.html")
-    static File stepTemplate = new File(Constants.REPORTS_TEMPLATES_PATH + "common/step.html")
+    static File stacktraceHeadTemplate = new File(Constants.REPORT_DIR + Constants.TEMPLATES_PATH + "common/stacktrace.html")
+    static File stepTemplate = new File(Constants.REPORT_DIR + Constants.TEMPLATES_PATH + "common/step.html")
 
 }

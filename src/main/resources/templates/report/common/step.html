@@ -1,12 +1,12 @@
 <div class="report-item {cucumberStepStatus}">
-    <div onclick="toggleStep('{cucumberStepId}')" class="report-row" role="button" tabindex="0" data-toggle="collapse" data-target="#{cucumberStepId}" aria-expanded="false" aria-controls="{cucumberStepId}"
+    <div onclick="toggleStep('{cucumberStepId}')" class="report-row" role="button" tabindex="0" data-toggle="collapse" data-target="#{cucumberStepId}" aria-expanded="{cucumberStepIsFailed}" aria-controls="{cucumberStepId}"
          style="cursor: pointer; pointer-events: inherit;">
         <div class="report-val medium">
             <div style="float:left">{cucumberStepName}</div>
             <div style="float:right">{cucumberStepDuration}</div>
         </div>
     </div>
-    <div class="collapse hide" id="{cucumberStepId}">
+    <div class="collapse {cucumberStepClass}" id="{cucumberStepId}">
         {STACKTRACE_HTML_PAGE}
     </div>
 </div>
