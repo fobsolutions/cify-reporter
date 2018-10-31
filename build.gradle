@@ -1,5 +1,5 @@
 plugins {
-    id 'com.jfrog.bintray' version '1.7'
+    id 'com.jfrog.bintray' version '1.8.4'
 }
 
 group 'io.cify'
@@ -28,17 +28,20 @@ publishing {
     publications {
         mavenJava(MavenPublication) {
             from components.java
+            artifactId 'cify-reporter'
         }
     }
 }
 
 bintray {
     user = project.hasProperty('bintrayUser') ? project.bintrayUser : System.getenv('BINTRAY_USER')
-    key = project.hasProperty('bintrayKey') ? project.bintrayKey : System.getenv('BINTRAY_KEY')
+    key = project.hasProperty('bintrayApiKey') ? project.bintrayKey : System.getenv('BINTRAY_KEY')
+    publish = true
+    override = true
     publications = ['mavenJava']
     pkg {
         repo = group
-        name = rootProject.name
+        name = 'cify-reporter'
         userOrg = 'fobsolutions'
         vcsUrl = 'https://github.com/fobsolutions/cify-reporter'
         licenses = ['Apache-2.0']
