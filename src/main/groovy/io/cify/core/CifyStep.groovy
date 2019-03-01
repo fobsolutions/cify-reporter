@@ -36,6 +36,7 @@ class CifyStep {
                 null
         )
         Map resultMap = map["result"] as Map
+
         this.result = new Result(
                 resultMap["status"] as String,
                 resultMap["duration"] as Long,

@@ -63,7 +63,9 @@ class CifyScenario {
     private static List<CifyStep> parseCifySteps(List steps) {
         List<CifyStep> cifySteps = new ArrayList<>()
         steps.each {
-            cifySteps.add(new CifyStep(it as Map))
+            if ((it as Map).get("device") != null) {
+                cifySteps.add(new CifyStep(it as Map))
+            }
         }
         return cifySteps
     }
