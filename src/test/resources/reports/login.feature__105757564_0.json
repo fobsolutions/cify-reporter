@@ -1,0 +1,360 @@
+{
+    "report": {
+        "devices": {
+            "BROWSER": {
+                
+            },
+            "IOS": {
+                "app": "src/test/resources/applications/swaglab.ipa",
+                "automationName": "XCUITest",
+                "capability": "iphone",
+                "capabilityId": "ios0105757564",
+                "deviceName": "Local iPhone",
+                "remote": "http://0.0.0.0:4723/wd/hub",
+                "udid": "auto"
+            },
+            "ANDROID": {
+                
+            }
+        },
+        "feature": {
+            "devices": [
+                {
+                    "app": "/users/markokonsa/projects/swaglab/src/test/resources/applications/swaglab.ipa",
+                    "automationName": "XCUITest",
+                    "capability": "iphone",
+                    "capabilityId": "ios0105757564",
+                    "deviceName": "Local iPhone",
+                    "remote": "http://0.0.0.0:4723/wd/hub",
+                    "testobject_test_name": "Login with valid credentials on device",
+                    "udid": "auto"
+                }
+            ],
+            "endDate": "2019-05-28T08:00:58+0000",
+            "feature": {
+                "comments": [
+                    
+                ],
+                "description": "",
+                "firstNonCommentLine": 1,
+                "id": "login-to-swaglabs-application",
+                "keyword": "Feature",
+                "line": 2,
+                "lineRange": {
+                    "first": 1,
+                    "last": 2
+                },
+                "name": "Login to SwagLabs application",
+                "tags": [
+                    {
+                        "line": 1,
+                        "name": "@login"
+                    }
+                ]
+            },
+            "scenarios": [
+                {
+                    "background": null,
+                    "conditions": {
+                        "after": [
+                            {
+                                "match": {
+                                    "arguments": [
+                                        
+                                    ],
+                                    "location": "CoreSteps.groovy:38"
+                                },
+                                "result": {
+                                    "duration": 1097561329,
+                                    "error": null,
+                                    "errorMessage": null,
+                                    "status": "passed"
+                                }
+                            }
+                        ],
+                        "before": [
+                            {
+                                "match": {
+                                    "arguments": [
+                                        
+                                    ],
+                                    "location": "CoreSteps.groovy:21"
+                                },
+                                "result": {
+                                    "duration": 56687371,
+                                    "error": null,
+                                    "errorMessage": null,
+                                    "status": "passed"
+                                }
+                            }
+                        ]
+                    },
+                    "devices": [
+                        {
+                            "app": "/users/markokonsa/projects/swaglab/src/test/resources/applications/swaglab.ipa",
+                            "automationName": "XCUITest",
+                            "capability": "iphone",
+                            "capabilityId": "ios0105757564",
+                            "deviceName": "Local iPhone",
+                            "remote": "http://0.0.0.0:4723/wd/hub",
+                            "testobject_test_name": "Login with valid credentials on device",
+                            "udid": "auto"
+                        }
+                    ],
+                    "endDate": "2019-05-28T08:00:58+0000",
+                    "nextStep": null,
+                    "scenario": {
+                        "comments": [
+                            
+                        ],
+                        "description": "",
+                        "firstNonCommentLine": 4,
+                        "id": "login-to-swaglabs-application;login-with-valid-credentials-on-device",
+                        "keyword": "Scenario",
+                        "line": 4,
+                        "lineRange": {
+                            "first": 4,
+                            "last": 4
+                        },
+                        "name": "Login with valid credentials on device",
+                        "tags": [
+                            
+                        ]
+                    },
+                    "startDate": "2019-05-28T08:00:25+0000",
+                    "status": "PASSED",
+                    "steps": [
+                        {
+                            "device": {
+                                "app": "/users/markokonsa/projects/swaglab/src/test/resources/applications/swaglab.ipa",
+                                "automationName": "XCUITest",
+                                "capability": "iphone",
+                                "capabilityId": "ios0105757564",
+                                "deviceName": "Local iPhone",
+                                "remote": "http://0.0.0.0:4723/wd/hub",
+                                "testobject_test_name": "Login with valid credentials on device",
+                                "udid": "auto"
+                            },
+                            "duration": 15694,
+                            "embeddings": [
+                                
+                            ],
+                            "endDate": "2019-05-28T08:00:41+0000",
+                            "result": {
+                                "duration": 15694590793,
+                                "error": null,
+                                "errorMessage": null,
+                                "status": "passed"
+                            },
+                            "startDate": "2019-05-28T08:00:25+0000",
+                            "step": {
+                                "comments": [
+                                    
+                                ],
+                                "docString": null,
+                                "firstNonCommentLine": 5,
+                                "keyword": "Given ",
+                                "line": 5,
+                                "lineRange": {
+                                    "first": 5,
+                                    "last": 5
+                                },
+                                "name": "user opens application",
+                                "outlineArgs": [
+                                    
+                                ],
+                                "rows": null
+                            },
+                            "writings": [
+                                
+                            ]
+                        },
+                        {
+                            "device": {
+                                "app": "/users/markokonsa/projects/swaglab/src/test/resources/applications/swaglab.ipa",
+                                "automationName": "XCUITest",
+                                "capability": "iphone",
+                                "capabilityId": "ios0105757564",
+                                "deviceName": "Local iPhone",
+                                "remote": "http://0.0.0.0:4723/wd/hub",
+                                "testobject_test_name": "Login with valid credentials on device",
+                                "udid": "auto"
+                            },
+                            "duration": 2286,
+                            "embeddings": [
+                                
+                            ],
+                            "endDate": "2019-05-28T08:00:43+0000",
+                            "result": {
+                                "duration": 2286084422,
+                                "error": null,
+                                "errorMessage": null,
+                                "status": "passed"
+                            },
+                            "startDate": "2019-05-28T08:00:25+0000",
+                            "step": {
+                                "comments": [
+                                    
+                                ],
+                                "docString": null,
+                                "firstNonCommentLine": 6,
+                                "keyword": "Then ",
+                                "line": 6,
+                                "lineRange": {
+                                    "first": 6,
+                                    "last": 6
+                                },
+                                "name": "login page should be visible",
+                                "outlineArgs": [
+                                    
+                                ],
+                                "rows": null
+                            },
+                            "writings": [
+                                
+                            ]
+                        },
+                        {
+                            "device": {
+                                "app": "/users/markokonsa/projects/swaglab/src/test/resources/applications/swaglab.ipa",
+                                "automationName": "XCUITest",
+                                "capability": "iphone",
+                                "capabilityId": "ios0105757564",
+                                "deviceName": "Local iPhone",
+                                "remote": "http://0.0.0.0:4723/wd/hub",
+                                "testobject_test_name": "Login with valid credentials on device",
+                                "udid": "auto"
+                            },
+                            "duration": 6445,
+                            "embeddings": [
+                                
+                            ],
+                            "endDate": "2019-05-28T08:00:50+0000",
+                            "result": {
+                                "duration": 6445793016,
+                                "error": null,
+                                "errorMessage": null,
+                                "status": "passed"
+                            },
+                            "startDate": "2019-05-28T08:00:25+0000",
+                            "step": {
+                                "comments": [
+                                    
+                                ],
+                                "docString": null,
+                                "firstNonCommentLine": 7,
+                                "keyword": "When ",
+                                "line": 7,
+                                "lineRange": {
+                                    "first": 7,
+                                    "last": 7
+                                },
+                                "name": "user enters VALID credentials into login form",
+                                "outlineArgs": [
+                                    
+                                ],
+                                "rows": null
+                            },
+                            "writings": [
+                                
+                            ]
+                        },
+                        {
+                            "device": {
+                                "app": "/users/markokonsa/projects/swaglab/src/test/resources/applications/swaglab.ipa",
+                                "automationName": "XCUITest",
+                                "capability": "iphone",
+                                "capabilityId": "ios0105757564",
+                                "deviceName": "Local iPhone",
+                                "remote": "http://0.0.0.0:4723/wd/hub",
+                                "testobject_test_name": "Login with valid credentials on device",
+                                "udid": "auto"
+                            },
+                            "duration": 1597,
+                            "embeddings": [
+                                
+                            ],
+                            "endDate": "2019-05-28T08:00:51+0000",
+                            "result": {
+                                "duration": 1597508179,
+                                "error": null,
+                                "errorMessage": null,
+                                "status": "passed"
+                            },
+                            "startDate": "2019-05-28T08:00:25+0000",
+                            "step": {
+                                "comments": [
+                                    
+                                ],
+                                "docString": null,
+                                "firstNonCommentLine": 8,
+                                "keyword": "And ",
+                                "line": 8,
+                                "lineRange": {
+                                    "first": 8,
+                                    "last": 8
+                                },
+                                "name": "user clicks login button",
+                                "outlineArgs": [
+                                    
+                                ],
+                                "rows": null
+                            },
+                            "writings": [
+                                
+                            ]
+                        },
+                        {
+                            "device": {
+                                "app": "/users/markokonsa/projects/swaglab/src/test/resources/applications/swaglab.ipa",
+                                "automationName": "XCUITest",
+                                "capability": "iphone",
+                                "capabilityId": "ios0105757564",
+                                "deviceName": "Local iPhone",
+                                "remote": "http://0.0.0.0:4723/wd/hub",
+                                "testobject_test_name": "Login with valid credentials on device",
+                                "udid": "auto"
+                            },
+                            "duration": 5902,
+                            "embeddings": [
+                                
+                            ],
+                            "endDate": "2019-05-28T08:00:57+0000",
+                            "result": {
+                                "duration": 5902969965,
+                                "error": null,
+                                "errorMessage": null,
+                                "status": "passed"
+                            },
+                            "startDate": "2019-05-28T08:00:25+0000",
+                            "step": {
+                                "comments": [
+                                    
+                                ],
+                                "docString": null,
+                                "firstNonCommentLine": 9,
+                                "keyword": "Then ",
+                                "line": 9,
+                                "lineRange": {
+                                    "first": 9,
+                                    "last": 9
+                                },
+                                "name": "products page should be visible",
+                                "outlineArgs": [
+                                    
+                                ],
+                                "rows": null
+                            },
+                            "writings": [
+                                
+                            ]
+                        }
+                    ],
+                    "url": ""
+                }
+            ],
+            "startDate": "2019-05-28T08:00:25+0000",
+            "status": "PASSED"
+        }
+    }
+}
